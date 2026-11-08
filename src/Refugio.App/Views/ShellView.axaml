@@ -1,0 +1,44 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:Refugio.App.ViewModels"
+             x:Class="Refugio.App.Views.ShellView"
+             x:DataType="vm:ShellViewModel">
+  <Grid ColumnDefinitions="240,*">
+    <Border Grid.Column="0" Background="{DynamicResource SidebarBackground}" Padding="18">
+      <Grid RowDefinitions="Auto,*,Auto">
+        <StackPanel Spacing="2">
+          <TextBlock Text="Refugio" FontSize="26" FontWeight="Bold" Foreground="White" />
+          <TextBlock Text="Animales" FontSize="14" Foreground="#9FC0A8" Margin="0,0,0,14" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Spacing="4" Margin="0,10,0,0">
+          <Button Classes="nav" Content="Panel" Command="{Binding NavigateCommand}" CommandParameter="dashboard" />
+          <Button Classes="nav" Content="Animales" Command="{Binding NavigateCommand}" CommandParameter="animales" />
+          <Button Classes="nav" Content="Adoptantes" Command="{Binding NavigateCommand}" CommandParameter="adoptantes" />
+          <Button Classes="nav" Content="Solicitudes" Command="{Binding NavigateCommand}" CommandParameter="solicitudes" />
+          <Button Classes="nav" Content="Tratamientos" Command="{Binding NavigateCommand}" CommandParameter="tratamientos" />
+          <Button Classes="nav" Content="Donaciones" Command="{Binding NavigateCommand}" CommandParameter="donaciones" />
+          <Button Classes="nav" Content="Usuarios" Command="{Binding NavigateCommand}" CommandParameter="usuarios" IsVisible="{Binding IsAdmin}" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Spacing="8">
+          <Border Background="#254733" CornerRadius="10" Padding="12">
+            <StackPanel Spacing="2">
+              <TextBlock Text="{Binding UserName}" Foreground="White" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" />
+              <TextBlock Text="{Binding UserRole}" Foreground="#9FC0A8" FontSize="12" />
+            </StackPanel>
+          </Border>
+          <Button Classes="nav" Content="Cerrar sesión" Command="{Binding LogoutCommand}" />
+        </StackPanel>
+      </Grid>
+    </Border>
+
+    <Grid Grid.Column="1" RowDefinitions="Auto,*" Margin="28">
+      <Grid ColumnDefinitions="*,Auto">
+        <TextBlock Text="{Binding PageTitle}" Classes="page-title" VerticalAlignment="Center" />
+        <TextBlock Grid.Column="1" Text="Sistema de Gestión de Refugio" Classes="subtitle" VerticalAlignment="Center" />
+      </Grid>
+      <ContentControl Grid.Row="1" Content="{Binding CurrentPage}" Margin="0,18,0,0" />
+    </Grid>
+  </Grid>
+</UserControl>

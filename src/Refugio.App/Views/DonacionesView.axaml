@@ -1,0 +1,62 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="Refugio.App.Views.DonacionesView">
+  <Grid RowDefinitions="Auto,Auto,*">
+    <StackPanel Orientation="Horizontal" Spacing="8">
+      <Button Content="Actualizar" Classes="ghost" Command="{Binding LoadCommand}" />
+      <TextBlock Text="Las donaciones quedan asociadas al usuario que las registra."
+                 Classes="subtitle"
+                 VerticalAlignment="Center"
+                 Margin="8,0,0,0" />
+    </StackPanel>
+
+    <StackPanel Grid.Row="1" Margin="0,8,0,8">
+      <TextBlock Text="{Binding ErrorMessage}" Foreground="{DynamicResource Danger}" TextWrapping="Wrap" />
+      <TextBlock Text="{Binding InfoMessage}" Foreground="{DynamicResource Accent}" TextWrapping="Wrap" />
+    </StackPanel>
+
+    <Grid Grid.Row="2" ColumnDefinitions="*,330">
+      <Border Classes="card" Padding="0">
+        <DataGrid ItemsSource="{Binding Donaciones}">
+          <DataGrid.Columns>
+            <DataGridTextColumn Header="Donante" Binding="{Binding Donante}" Width="1.3*" />
+            <DataGridTextColumn Header="Monto" Binding="{Binding MontoTexto}" Width="90" />
+            <DataGridTextColumn Header="Fecha" Binding="{Binding FechaTexto}" Width="110" />
+            <DataGridTextColumn Header="Método" Binding="{Binding MetodoTexto}" Width="125" />
+            <DataGridTextColumn Header="Nota" Binding="{Binding Nota}" Width="1.4*" />
+          </DataGrid.Columns>
+        </DataGrid>
+      </Border>
+
+      <Border Grid.Column="1" Classes="card" Margin="14,0,0,0">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+          <StackPanel Spacing="3">
+            <TextBlock Text="Registrar donación" Classes="section-title" Margin="0,0,0,4" />
+
+            <TextBlock Text="Donante *" Classes="field-label" />
+            <TextBox Text="{Binding EditDonante}" />
+
+            <TextBlock Text="Monto *" Classes="field-label" />
+            <NumericUpDown Value="{Binding EditMonto}" Minimum="0" Increment="500" FormatString="0.00" />
+
+            <TextBlock Text="Fecha" Classes="field-label" />
+            <DatePicker SelectedDate="{Binding EditFecha}" HorizontalAlignment="Stretch" />
+
+            <TextBlock Text="Método" Classes="field-label" />
+            <ComboBox ItemsSource="{Binding Metodos}" SelectedItem="{Binding EditMetodo}" HorizontalAlignment="Stretch" />
+
+            <TextBlock Text="Nota" Classes="field-label" />
+            <TextBox Text="{Binding EditNota}" AcceptsReturn="True" Height="70" TextWrapping="Wrap" />
+
+            <Button Content="Registrar donación"
+                    Classes="primary"
+                    Command="{Binding SaveCommand}"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    Margin="0,14,0,0" />
+          </StackPanel>
+        </ScrollViewer>
+      </Border>
+    </Grid>
+  </Grid>
+</UserControl>

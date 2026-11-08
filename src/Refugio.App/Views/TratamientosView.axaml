@@ -1,0 +1,82 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="Refugio.App.Views.TratamientosView">
+  <Grid RowDefinitions="Auto,Auto,*">
+    <StackPanel Orientation="Horizontal" Spacing="8">
+      <Button Content="Actualizar" Classes="ghost" Command="{Binding LoadCommand}" />
+      <TextBlock Text="Solo veterinarios y administradores pueden registrar o completar tratamientos."
+                 Classes="subtitle"
+                 VerticalAlignment="Center"
+                 Margin="8,0,0,0" />
+    </StackPanel>
+
+    <StackPanel Grid.Row="1" Margin="0,8,0,8">
+      <TextBlock Text="{Binding ErrorMessage}" Foreground="{DynamicResource Danger}" TextWrapping="Wrap" />
+      <TextBlock Text="{Binding InfoMessage}" Foreground="{DynamicResource Accent}" TextWrapping="Wrap" />
+    </StackPanel>
+
+    <Grid Grid.Row="2" ColumnDefinitions="*,330">
+      <Border Classes="card" Padding="0">
+        <DataGrid ItemsSource="{Binding Tratamientos}" SelectedItem="{Binding SelectedTratamiento}">
+          <DataGrid.Columns>
+            <DataGridTextColumn Header="Animal" Binding="{Binding Animal}" Width="*" />
+            <DataGridTextColumn Header="Tipo" Binding="{Binding Tipo}" Width="110" />
+            <DataGridTextColumn Header="Descripción" Binding="{Binding Descripcion}" Width="1.4*" />
+            <DataGridTextColumn Header="Fecha" Binding="{Binding FechaTexto}" Width="110" />
+            <DataGridTextColumn Header="Costo" Binding="{Binding CostoTexto}" Width="85" />
+            <DataGridTextColumn Header="Estado" Binding="{Binding EstadoTexto}" Width="110" />
+          </DataGrid.Columns>
+        </DataGrid>
+      </Border>
+
+      <Border Grid.Column="1"
+              Classes="card"
+              Margin="14,0,0,0"
+              IsVisible="{Binding CanEdit}">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+          <StackPanel Spacing="3">
+            <TextBlock Text="Nuevo tratamiento" Classes="section-title" Margin="0,0,0,4" />
+
+            <TextBlock Text="Animal" Classes="field-label" />
+            <ComboBox ItemsSource="{Binding Animales}"
+                      SelectedItem="{Binding SelectedAnimalNuevo}"
+                      HorizontalAlignment="Stretch">
+              <ComboBox.ItemTemplate>
+                <DataTemplate>
+                  <TextBlock Text="{Binding Nombre}" />
+                </DataTemplate>
+              </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <TextBlock Text="Tipo" Classes="field-label" />
+            <ComboBox ItemsSource="{Binding Tipos}" SelectedItem="{Binding EditTipo}" HorizontalAlignment="Stretch" />
+
+            <TextBlock Text="Descripción *" Classes="field-label" />
+            <TextBox Text="{Binding EditDescripcion}" AcceptsReturn="True" Height="70" TextWrapping="Wrap" />
+
+            <TextBlock Text="Fecha" Classes="field-label" />
+            <DatePicker SelectedDate="{Binding EditFecha}" HorizontalAlignment="Stretch" />
+
+            <TextBlock Text="Costo" Classes="field-label" />
+            <NumericUpDown Value="{Binding EditCosto}" Minimum="0" Increment="100" FormatString="0.00" />
+
+            <Button Content="Registrar tratamiento"
+                    Classes="primary"
+                    Command="{Binding CreateCommand}"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    Margin="0,14,0,0" />
+
+            <Button Content="Marcar como completado"
+                    Classes="ghost"
+                    Command="{Binding CompleteCommand}"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    Margin="0,8,0,0"
+                    IsVisible="{Binding CanComplete}" />
+          </StackPanel>
+        </ScrollViewer>
+      </Border>
+    </Grid>
+  </Grid>
+</UserControl>

@@ -1,0 +1,101 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="Refugio.App.Views.SolicitudesView">
+  <Grid RowDefinitions="Auto,Auto,*">
+    <StackPanel Orientation="Horizontal" Spacing="8">
+      <TextBlock Text="Filtrar por estado:" Classes="subtitle" VerticalAlignment="Center" />
+      <ComboBox ItemsSource="{Binding EstadosFiltro}" SelectedItem="{Binding EstadoFiltro}" Width="160" />
+      <Button Content="Actualizar" Classes="ghost" Command="{Binding LoadCommand}" />
+    </StackPanel>
+
+    <StackPanel Grid.Row="1" Margin="0,8,0,8">
+      <TextBlock Text="{Binding ErrorMessage}" Foreground="{DynamicResource Danger}" TextWrapping="Wrap" />
+      <TextBlock Text="{Binding InfoMessage}" Foreground="{DynamicResource Accent}" TextWrapping="Wrap" />
+    </StackPanel>
+
+    <Grid Grid.Row="2" ColumnDefinitions="*,330">
+      <Border Classes="card" Padding="0">
+        <DataGrid ItemsSource="{Binding Solicitudes}" SelectedItem="{Binding SelectedSolicitud}">
+          <DataGrid.Columns>
+            <DataGridTextColumn Header="Animal" Binding="{Binding Animal}" Width="1.2*" />
+            <DataGridTextColumn Header="Adoptante" Binding="{Binding Adoptante}" Width="1.4*" />
+            <DataGridTextColumn Header="Estado" Binding="{Binding EstadoTexto}" Width="105" />
+            <DataGridTextColumn Header="Solicitada" Binding="{Binding FechaSolicitudTexto}" Width="105" />
+            <DataGridTextColumn Header="Resuelta" Binding="{Binding ResueltaEnTexto}" Width="105" />
+            <DataGridTextColumn Header="Motivo" Binding="{Binding Motivo}" Width="0.9*" />
+          </DataGrid.Columns>
+        </DataGrid>
+      </Border>
+
+      <StackPanel Grid.Column="1" Margin="14,0,0,0" Spacing="12">
+        <Border Classes="card">
+          <StackPanel Spacing="3">
+            <TextBlock Text="Nueva solicitud" Classes="section-title" Margin="0,0,0,4" />
+
+            <TextBlock Text="Animal disponible" Classes="field-label" />
+            <ComboBox ItemsSource="{Binding AnimalesDisponibles}"
+                      SelectedItem="{Binding SelectedAnimalNuevo}"
+                      PlaceholderText="Seleccionar animal"
+                      HorizontalAlignment="Stretch">
+              <ComboBox.ItemTemplate>
+                <DataTemplate>
+                  <TextBlock Text="{Binding Nombre}" />
+                </DataTemplate>
+              </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <TextBlock Text="Adoptante" Classes="field-label" />
+            <ComboBox ItemsSource="{Binding Adoptantes}"
+                      SelectedItem="{Binding SelectedAdoptanteNuevo}"
+                      PlaceholderText="Seleccionar adoptante"
+                      HorizontalAlignment="Stretch">
+              <ComboBox.ItemTemplate>
+                <DataTemplate>
+                  <TextBlock Text="{Binding Nombre}" />
+                </DataTemplate>
+              </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <Button Content="Registrar solicitud"
+                    Classes="primary"
+                    Command="{Binding CreateCommand}"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    Margin="0,12,0,0" />
+          </StackPanel>
+        </Border>
+
+        <Border Classes="card" IsVisible="{Binding CanResolve}">
+          <StackPanel Spacing="3">
+            <TextBlock Text="Resolver solicitud" Classes="section-title" Margin="0,0,0,4" />
+
+            <TextBlock Text="Motivo de rechazo" Classes="field-label" />
+            <TextBox Text="{Binding Motivo}"
+                     Watermark="Obligatorio para rechazar"
+                     AcceptsReturn="True"
+                     Height="60"
+                     TextWrapping="Wrap" />
+
+            <Button Content="Aprobar adopción"
+                    Classes="primary"
+                    Command="{Binding ApproveCommand}"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    Margin="0,12,0,0" />
+            <Button Content="Rechazar solicitud"
+                    Classes="danger"
+                    Command="{Binding RejectCommand}"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    Margin="0,6,0,0" />
+            <TextBlock Text="Al aprobar, el procedimiento y los triggers de la base de datos marcan al animal como adoptado y rechazan las solicitudes rivales."
+                       FontSize="11"
+                       Foreground="{DynamicResource TextMuted}"
+                       TextWrapping="Wrap"
+                       Margin="0,10,0,0" />
+          </StackPanel>
+        </Border>
+      </StackPanel>
+    </Grid>
+  </Grid>
+</UserControl>

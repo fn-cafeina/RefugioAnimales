@@ -1,0 +1,85 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="Refugio.App.Views.AnimalesView">
+  <Grid RowDefinitions="Auto,Auto,*">
+    <StackPanel Orientation="Horizontal" Spacing="8">
+      <TextBox Text="{Binding Busqueda}" Watermark="Buscar por nombre o raza" Width="230" />
+      <Button Content="Buscar" Classes="ghost" Command="{Binding LoadCommand}" />
+      <ComboBox ItemsSource="{Binding EstadosFiltro}" SelectedItem="{Binding EstadoFiltro}" Width="150" />
+      <ComboBox ItemsSource="{Binding EspeciesFiltro}" SelectedItem="{Binding EspecieFiltro}" Width="140" />
+      <Button Content="Nuevo animal" Classes="primary" Command="{Binding NewCommand}" />
+      <Button Content="Editar" Classes="ghost" Command="{Binding EditSelectedCommand}" IsEnabled="{Binding HasSelection}" />
+      <Button Content="Marcar en tratamiento" Classes="ghost" Command="{Binding MarkTreatmentCommand}" IsVisible="{Binding CanMarkTreatment}" />
+      <Button Content="Marcar disponible" Classes="ghost" Command="{Binding MarkAvailableCommand}" IsVisible="{Binding CanMarkAvailable}" />
+    </StackPanel>
+
+    <StackPanel Grid.Row="1" Margin="0,8,0,8">
+      <TextBlock Text="{Binding ErrorMessage}" Foreground="{DynamicResource Danger}" TextWrapping="Wrap" />
+      <TextBlock Text="{Binding InfoMessage}" Foreground="{DynamicResource Accent}" TextWrapping="Wrap" />
+    </StackPanel>
+
+    <Grid Grid.Row="2" ColumnDefinitions="*,Auto">
+      <Border Classes="card" Padding="0">
+        <DataGrid ItemsSource="{Binding Animales}" SelectedItem="{Binding SelectedAnimal}">
+          <DataGrid.Columns>
+            <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Width="1.2*" />
+            <DataGridTextColumn Header="Especie" Binding="{Binding Especie}" Width="90" />
+            <DataGridTextColumn Header="Raza" Binding="{Binding Raza}" Width="*" />
+            <DataGridTextColumn Header="Sexo" Binding="{Binding Sexo}" Width="80" />
+            <DataGridTextColumn Header="Edad" Binding="{Binding EdadTexto}" Width="110" />
+            <DataGridTextColumn Header="Estado" Binding="{Binding EstadoTexto}" Width="135" />
+            <DataGridTextColumn Header="Ingreso" Binding="{Binding FechaIngresoTexto}" Width="110" />
+            <DataGridTextColumn Header="Solicitudes" Binding="{Binding SolicitudesPendientes}" Width="105" />
+          </DataGrid.Columns>
+        </DataGrid>
+      </Border>
+
+      <Border Grid.Column="1"
+              Classes="card"
+              Width="340"
+              Margin="14,0,0,0"
+              IsVisible="{Binding IsEditing}">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+          <StackPanel Spacing="2">
+            <TextBlock Text="Datos del animal" Classes="section-title" Margin="0,0,0,6" />
+
+            <TextBlock Text="Nombre *" Classes="field-label" />
+            <TextBox Text="{Binding EditNombre}" />
+
+            <TextBlock Text="Especie" Classes="field-label" />
+            <ComboBox ItemsSource="{Binding Especies}" SelectedItem="{Binding EditEspecie}" HorizontalAlignment="Stretch" />
+
+            <TextBlock Text="Raza" Classes="field-label" />
+            <TextBox Text="{Binding EditRaza}" />
+
+            <TextBlock Text="Sexo" Classes="field-label" />
+            <ComboBox ItemsSource="{Binding Sexos}" SelectedItem="{Binding EditSexo}" HorizontalAlignment="Stretch" />
+
+            <TextBlock Text="Fecha de nacimiento" Classes="field-label" />
+            <DatePicker SelectedDate="{Binding EditFechaNacimiento}" HorizontalAlignment="Stretch" />
+
+            <TextBlock Text="Fecha de ingreso" Classes="field-label" />
+            <DatePicker SelectedDate="{Binding EditFechaIngreso}" HorizontalAlignment="Stretch" />
+
+            <TextBlock Text="Descripción" Classes="field-label" />
+            <TextBox Text="{Binding EditDescripcion}" AcceptsReturn="True" Height="80" TextWrapping="Wrap" />
+
+            <TextBlock Text="Foto (URL)" Classes="field-label" />
+            <TextBox Text="{Binding EditFotoUrl}" />
+
+            <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,14,0,0">
+              <Button Content="Guardar" Classes="primary" Command="{Binding SaveCommand}" />
+              <Button Content="Cancelar" Classes="ghost" Command="{Binding CancelCommand}" />
+            </StackPanel>
+
+            <TextBlock Text="El estado se modifica con los botones de la barra superior y queda auditado en la base de datos."
+                       FontSize="11"
+                       Foreground="{DynamicResource TextMuted}"
+                       TextWrapping="Wrap"
+                       Margin="0,12,0,0" />
+          </StackPanel>
+        </ScrollViewer>
+      </Border>
+    </Grid>
+  </Grid>
+</UserControl>

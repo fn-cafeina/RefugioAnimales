@@ -1,0 +1,163 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="Refugio.App.Views.DashboardView">
+  <ScrollViewer VerticalScrollBarVisibility="Auto">
+    <StackPanel Spacing="16">
+      <TextBlock Text="{Binding ErrorMessage}" Foreground="{DynamicResource Danger}" TextWrapping="Wrap" />
+
+      <StackPanel Orientation="Horizontal" Spacing="10">
+        <Button Content="Actualizar" Classes="ghost" Command="{Binding LoadCommand}" />
+        <TextBlock Text="Promedio de días hasta la adopción:" Classes="subtitle" VerticalAlignment="Center" Margin="10,0,0,0" />
+        <TextBlock Text="{Binding Resumen.PromedioDiasAdopcion, StringFormat={}{0} días}"
+                   FontWeight="SemiBold"
+                   VerticalAlignment="Center" />
+      </StackPanel>
+
+      <Grid ColumnDefinitions="*,*,*,*">
+        <Border Classes="card" Margin="0,0,12,0">
+          <StackPanel Spacing="4">
+            <TextBlock Text="Animales disponibles" Classes="subtitle" />
+            <TextBlock Text="{Binding Resumen.AnimalesDisponibles}" FontSize="34" FontWeight="Bold" />
+            <TextBlock Text="listos para adopción" FontSize="11" Foreground="{DynamicResource TextMuted}" />
+          </StackPanel>
+        </Border>
+        <Border Grid.Column="1" Classes="card" Margin="0,0,12,0">
+          <StackPanel Spacing="4">
+            <TextBlock Text="En tratamiento" Classes="subtitle" />
+            <TextBlock Text="{Binding Resumen.AnimalesEnTratamiento}" FontSize="34" FontWeight="Bold" />
+            <TextBlock Text="bajo cuidado veterinario" FontSize="11" Foreground="{DynamicResource TextMuted}" />
+          </StackPanel>
+        </Border>
+        <Border Grid.Column="2" Classes="card" Margin="0,0,12,0">
+          <StackPanel Spacing="4">
+            <TextBlock Text="Solicitudes pendientes" Classes="subtitle" />
+            <TextBlock Text="{Binding Resumen.SolicitudesPendientes}" FontSize="34" FontWeight="Bold" />
+            <TextBlock Text="esperando resolución" FontSize="11" Foreground="{DynamicResource TextMuted}" />
+          </StackPanel>
+        </Border>
+        <Border Grid.Column="3" Classes="card">
+          <StackPanel Spacing="4">
+            <TextBlock Text="Adopciones del mes" Classes="subtitle" />
+            <TextBlock Text="{Binding Resumen.AdopcionesMes}" FontSize="34" FontWeight="Bold" />
+            <TextBlock Text="aprobadas este mes" FontSize="11" Foreground="{DynamicResource TextMuted}" />
+          </StackPanel>
+        </Border>
+      </Grid>
+
+      <Grid ColumnDefinitions="1.5*,*">
+        <Border Classes="card" Margin="0,0,12,0">
+          <StackPanel Spacing="12">
+            <TextBlock Text="Adopciones por mes" Classes="section-title" />
+            <ItemsControl ItemsSource="{Binding AdopcionesBarras}">
+              <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                  <StackPanel Orientation="Horizontal" Spacing="8" />
+                </ItemsPanelTemplate>
+              </ItemsControl.ItemsPanel>
+              <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                  <Grid RowDefinitions="Auto,*,Auto" Height="156" Width="36">
+                    <TextBlock Text="{Binding ValorTexto}"
+                               FontSize="11"
+                               Foreground="{DynamicResource TextMuted}"
+                               HorizontalAlignment="Center" />
+                    <Border Grid.Row="1"
+                            Width="22"
+                            Height="{Binding Altura}"
+                            Background="{DynamicResource Accent}"
+                            CornerRadius="4"
+                            VerticalAlignment="Bottom" />
+                    <TextBlock Grid.Row="2"
+                               Text="{Binding Etiqueta}"
+                               FontSize="11"
+                               Foreground="{DynamicResource TextMuted}"
+                               HorizontalAlignment="Center" />
+                  </Grid>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+          </StackPanel>
+        </Border>
+
+        <StackPanel Grid.Column="1" Spacing="12">
+          <Border Classes="card">
+            <StackPanel Spacing="4">
+              <TextBlock Text="Donaciones del mes" Classes="subtitle" />
+              <TextBlock Text="{Binding Resumen.DonacionesMes, StringFormat={}{0:C0}}"
+                         FontSize="32"
+                         FontWeight="Bold" />
+              <TextBlock Text="registradas este mes" FontSize="11" Foreground="{DynamicResource TextMuted}" />
+            </StackPanel>
+          </Border>
+          <Border Classes="card">
+            <StackPanel Spacing="4">
+              <TextBlock Text="Promedio de adopción" Classes="subtitle" />
+              <TextBlock Text="{Binding Resumen.PromedioDiasAdopcion, StringFormat={}{0} días}"
+                         FontSize="32"
+                         FontWeight="Bold" />
+              <TextBlock Text="desde el ingreso al refugio" FontSize="11" Foreground="{DynamicResource TextMuted}" />
+            </StackPanel>
+          </Border>
+        </StackPanel>
+      </Grid>
+
+      <Grid ColumnDefinitions="1.3*,*">
+        <Border Classes="card" Margin="0,0,12,0">
+          <StackPanel Spacing="12">
+            <TextBlock Text="Donaciones de los últimos 6 meses" Classes="section-title" />
+            <ItemsControl ItemsSource="{Binding DonacionesBarras}">
+              <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                  <StackPanel Orientation="Horizontal" Spacing="16" />
+                </ItemsPanelTemplate>
+              </ItemsControl.ItemsPanel>
+              <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                  <Grid RowDefinitions="Auto,*,Auto" Height="156" Width="54">
+                    <TextBlock Text="{Binding ValorTexto}"
+                               FontSize="11"
+                               Foreground="{DynamicResource TextMuted}"
+                               HorizontalAlignment="Center" />
+                    <Border Grid.Row="1"
+                            Width="28"
+                            Height="{Binding Altura}"
+                            Background="#7AA88A"
+                            CornerRadius="4"
+                            VerticalAlignment="Bottom" />
+                    <TextBlock Grid.Row="2"
+                               Text="{Binding Etiqueta}"
+                               FontSize="11"
+                               Foreground="{DynamicResource TextMuted}"
+                               HorizontalAlignment="Center" />
+                  </Grid>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+          </StackPanel>
+        </Border>
+
+        <Border Grid.Column="1" Classes="card">
+          <StackPanel Spacing="10">
+            <TextBlock Text="Top donantes" Classes="section-title" />
+            <ItemsControl ItemsSource="{Binding TopDonantes}">
+              <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                  <Grid ColumnDefinitions="26,*,Auto" Margin="0,5">
+                    <TextBlock Text="{Binding Posicion}" Foreground="{DynamicResource TextMuted}" />
+                    <TextBlock Grid.Column="1" Text="{Binding Donante}" TextTrimming="CharacterEllipsis" />
+                    <TextBlock Grid.Column="2" Text="{Binding Total, StringFormat={}{0:C0}}" FontWeight="SemiBold" />
+                  </Grid>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <TextBlock Text="Reportes calculados con procedimientos almacenados y window functions."
+                       FontSize="11"
+                       Foreground="{DynamicResource TextMuted}"
+                       TextWrapping="Wrap"
+                       Margin="0,6,0,0" />
+          </StackPanel>
+        </Border>
+      </Grid>
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>

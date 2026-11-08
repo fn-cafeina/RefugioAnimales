@@ -1,0 +1,110 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:Refugio.App"
+             x:Class="Refugio.App.App"
+             RequestedThemeVariant="Light">
+
+  <Application.DataTemplates>
+    <local:ViewLocator />
+  </Application.DataTemplates>
+
+  <Application.Resources>
+    <SolidColorBrush x:Key="AppBackground">#F4F6F2</SolidColorBrush>
+    <SolidColorBrush x:Key="CardBackground">#FFFFFF</SolidColorBrush>
+    <SolidColorBrush x:Key="SidebarBackground">#1E3A2A</SolidColorBrush>
+    <SolidColorBrush x:Key="SidebarText">#E8F1EA</SolidColorBrush>
+    <SolidColorBrush x:Key="Accent">#3E8E5A</SolidColorBrush>
+    <SolidColorBrush x:Key="AccentHover">#33794B</SolidColorBrush>
+    <SolidColorBrush x:Key="TextPrimary">#22302A</SolidColorBrush>
+    <SolidColorBrush x:Key="TextMuted">#69786F</SolidColorBrush>
+    <SolidColorBrush x:Key="Danger">#B84A48</SolidColorBrush>
+    <SolidColorBrush x:Key="BorderSoft">#DDE5DE</SolidColorBrush>
+  </Application.Resources>
+
+  <Application.Styles>
+    <FluentTheme />
+    <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml" />
+
+    <Style Selector="TextBlock.page-title">
+      <Setter Property="FontSize" Value="26" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="Foreground" Value="{DynamicResource TextPrimary}" />
+    </Style>
+
+    <Style Selector="TextBlock.subtitle">
+      <Setter Property="FontSize" Value="13" />
+      <Setter Property="Foreground" Value="{DynamicResource TextMuted}" />
+    </Style>
+
+    <Style Selector="TextBlock.section-title">
+      <Setter Property="FontSize" Value="16" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="Foreground" Value="{DynamicResource TextPrimary}" />
+    </Style>
+
+    <Style Selector="TextBlock.field-label">
+      <Setter Property="FontSize" Value="12" />
+      <Setter Property="Foreground" Value="{DynamicResource TextMuted}" />
+      <Setter Property="Margin" Value="0,8,0,2" />
+    </Style>
+
+    <Style Selector="Border.card">
+      <Setter Property="Background" Value="{DynamicResource CardBackground}" />
+      <Setter Property="CornerRadius" Value="12" />
+      <Setter Property="Padding" Value="18" />
+      <Setter Property="BoxShadow" Value="0 2 10 0 #12000000" />
+    </Style>
+
+    <Style Selector="Button.primary">
+      <Setter Property="Background" Value="{DynamicResource Accent}" />
+      <Setter Property="Foreground" Value="White" />
+      <Setter Property="CornerRadius" Value="8" />
+      <Setter Property="Padding" Value="16,9" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+
+    <Style Selector="Button.ghost">
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="Foreground" Value="{DynamicResource TextPrimary}" />
+      <Setter Property="BorderBrush" Value="{DynamicResource BorderSoft}" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="CornerRadius" Value="8" />
+      <Setter Property="Padding" Value="14,8" />
+    </Style>
+
+    <Style Selector="Button.danger">
+      <Setter Property="Background" Value="{DynamicResource Danger}" />
+      <Setter Property="Foreground" Value="White" />
+      <Setter Property="CornerRadius" Value="8" />
+      <Setter Property="Padding" Value="14,8" />
+    </Style>
+
+    <Style Selector="Button.nav">
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="Foreground" Value="{DynamicResource SidebarText}" />
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+      <Setter Property="HorizontalContentAlignment" Value="Left" />
+      <Setter Property="Padding" Value="14,10" />
+      <Setter Property="CornerRadius" Value="8" />
+      <Setter Property="FontSize" Value="14" />
+    </Style>
+
+    <Style Selector="TextBox, ComboBox, DatePicker">
+      <Setter Property="CornerRadius" Value="7" />
+    </Style>
+
+    <Style Selector="DataGrid">
+      <Setter Property="GridLinesVisibility" Value="Horizontal" />
+      <Setter Property="HorizontalGridLinesBrush" Value="{DynamicResource BorderSoft}" />
+      <Setter Property="RowBackground" Value="Transparent" />
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="BorderThickness" Value="0" />
+      <Setter Property="HeadersVisibility" Value="Column" />
+      <Setter Property="CanUserReorderColumns" Value="False" />
+      <Setter Property="CanUserResizeColumns" Value="True" />
+      <Setter Property="IsReadOnly" Value="True" />
+      <Setter Property="SelectionMode" Value="Single" />
+      <Setter Property="FontSize" Value="12" />
+    </Style>
+  </Application.Styles>
+</Application>

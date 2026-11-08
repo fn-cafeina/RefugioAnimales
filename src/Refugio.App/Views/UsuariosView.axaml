@@ -1,0 +1,61 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="Refugio.App.Views.UsuariosView">
+  <Grid RowDefinitions="Auto,Auto,*">
+    <StackPanel Orientation="Horizontal" Spacing="8">
+      <Button Content="Actualizar" Classes="ghost" Command="{Binding LoadCommand}" />
+      <Button Content="Nuevo usuario" Classes="primary" Command="{Binding NewCommand}" />
+      <Button Content="Editar" Classes="ghost" Command="{Binding EditSelectedCommand}" IsEnabled="{Binding HasSelection}" />
+    </StackPanel>
+
+    <StackPanel Grid.Row="1" Margin="0,8,0,8">
+      <TextBlock Text="{Binding ErrorMessage}" Foreground="{DynamicResource Danger}" TextWrapping="Wrap" />
+      <TextBlock Text="{Binding InfoMessage}" Foreground="{DynamicResource Accent}" TextWrapping="Wrap" />
+    </StackPanel>
+
+    <Grid Grid.Row="2" ColumnDefinitions="*,330">
+      <Border Classes="card" Padding="0">
+        <DataGrid ItemsSource="{Binding Usuarios}" SelectedItem="{Binding SelectedUsuario}">
+          <DataGrid.Columns>
+            <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Width="*" />
+            <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="1.4*" />
+            <DataGridTextColumn Header="Rol" Binding="{Binding RolTexto}" Width="130" />
+            <DataGridTextColumn Header="Activo" Binding="{Binding ActivoTexto}" Width="80" />
+          </DataGrid.Columns>
+        </DataGrid>
+      </Border>
+
+      <Border Grid.Column="1"
+              Classes="card"
+              Margin="14,0,0,0"
+              IsVisible="{Binding IsEditing}">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+          <StackPanel Spacing="3">
+            <TextBlock Text="Datos del usuario" Classes="section-title" Margin="0,0,0,4" />
+
+            <TextBlock Text="Nombre *" Classes="field-label" />
+            <TextBox Text="{Binding EditNombre}" />
+
+            <TextBlock Text="Email *" Classes="field-label" />
+            <TextBox Text="{Binding EditEmail}" />
+
+            <TextBlock Text="Rol" Classes="field-label" />
+            <ComboBox ItemsSource="{Binding Roles}" SelectedItem="{Binding EditRol}" HorizontalAlignment="Stretch" />
+
+            <CheckBox Content="Usuario activo" IsChecked="{Binding EditActivo}" Margin="0,12,0,0" />
+
+            <TextBlock Text="Contraseña" Classes="field-label" />
+            <TextBox Text="{Binding EditPassword}"
+                     PasswordChar="*"
+                     Watermark="Dejar vacío para conservar la actual" />
+
+            <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,14,0,0">
+              <Button Content="Guardar" Classes="primary" Command="{Binding SaveCommand}" />
+              <Button Content="Cancelar" Classes="ghost" Command="{Binding CancelCommand}" />
+            </StackPanel>
+          </StackPanel>
+        </ScrollViewer>
+      </Border>
+    </Grid>
+  </Grid>
+</UserControl>

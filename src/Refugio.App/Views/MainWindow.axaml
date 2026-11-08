@@ -1,0 +1,14 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Refugio.App.ViewModels"
+        x:Class="Refugio.App.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="Refugio Animales"
+        Width="1250"
+        Height="800"
+        MinWidth="1050"
+        MinHeight="680"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource AppBackground}">
+  <ContentControl Content="{Binding CurrentPage}" />
+</Window>
